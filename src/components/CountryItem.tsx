@@ -1,23 +1,41 @@
-import { ICountry, Color } from './../types';
+import { Color, ICountry } from '../types';
 import Badge from './Badge';
+
 interface ICountryItem {
-    flag: ICountry["flag"],
-    name: ICountry["name"],
-    capital: ICountry["capital"],
-    region: ICountry["region"],
-    area: ICountry["area"],
-    population: ICountry["population"],
+    country: ICountry;
 }
-const CountryItem = ({ flag, name, capital, region, area, population }: ICountryItem) => {
+
+const CountryItem = ({
+    country: { name, capital, region, population, area, flag },
+}: ICountryItem) => {
     return (
-        <li className="list-group-item d-flex justify-content-between align-items-center">
-            <img className="col img-fluid col-md-1" src={flag} alt="flag" />
-            <span className="col mx-5">{name}</span>
-            <span className="col">{capital}</span>
-            <span className="col">{region}</span>
-            <Badge color={Color.Primary} type={"area"} value={area} />
-            <Badge color={Color.Secondary} type={"population"} value={population} />
+        <li className="list-group-item">
+            <div className="row d-flex align-items-center">
+                <div className="col-1">
+                    <img src={flag} alt={name} width={'100%'} />
+                </div>
+                <div className="col-3">
+                    <span>{name}</span>
+                </div>
+                <div className="col-2">
+                    <span>{capital}</span>
+                </div>
+                <div className="col-2">
+                    <span>{region}</span>
+                </div>
+                <div className="col-2">
+                    <Badge label={'area'} value={area} color={Color.Primary} />
+                </div>
+                <div className="col-2">
+                    <Badge
+                        label={'population'}
+                        value={population}
+                        color={Color.Secondary}
+                    />
+                </div>
+            </div>
         </li>
-    )
-}
+    );
+};
+
 export default CountryItem;
